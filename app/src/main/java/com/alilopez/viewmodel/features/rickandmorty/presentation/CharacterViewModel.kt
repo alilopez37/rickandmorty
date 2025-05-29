@@ -1,0 +1,27 @@
+package com.alilopez.viewmodel.features.rickandmorty.presentation
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.alilopez.viewmodel.features.rickandmorty.domain.model.Characters
+import com.alilopez.viewmodel.features.rickandmorty.domain.usecase.GetCharactersUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+
+class CharacterViewModel(
+    private val getCharactersUseCase: GetCharactersUseCase
+) : ViewModel() {
+
+    private val _characters = MutableStateFlow<List<Characters>>(emptyList())
+    val characters: StateFlow<List<Characters>> = _characters
+
+    init {
+        fetchCharacters()
+    }
+
+    private fun fetchCharacters() {
+        viewModelScope.launch {
+            _characters.value = getCharactersUseCase()
+        }
+    }
+}
