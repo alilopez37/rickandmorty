@@ -7,8 +7,19 @@ import com.alilopez.viewmodel.features.rickandmorty.domain.repository.CharacterR
 import com.alilopez.viewmodel.features.rickandmorty.domain.usecase.GetCharactersUseCase
 
 object AppModule {
-    private val api: CharacterService = RetrofitHelper.retrofit.create(CharacterService::class.java)
+    private val tokenProvider = {""}
+    /*
+    private val tokenProvider = {
+        context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+            .getString("token", "") ?: ""
+    } */
 
-    private val repository: CharacterRepository = CharacterRepositoryImpl(api)
+    init {
+        RetrofitHelper.init(tokenProvider)
+    }
+
+    private val characterService: CharacterService = RetrofitHelper.getService(CharacterService::class.java)
+
+    private val repository: CharacterRepository = CharacterRepositoryImpl(characterService)
     val getCharactersUseCase = GetCharactersUseCase(repository)
 }

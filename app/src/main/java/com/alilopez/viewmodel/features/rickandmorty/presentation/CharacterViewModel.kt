@@ -15,13 +15,21 @@ class CharacterViewModel(
     private val _characters = MutableStateFlow<List<Characters>>(emptyList())
     val characters: StateFlow<List<Characters>> = _characters
 
+    private var _error = MutableStateFlow<String>("")
+    val error : StateFlow<String> = _error
+
     init {
         fetchCharacters()
     }
 
     private fun fetchCharacters() {
         viewModelScope.launch {
-            _characters.value = getCharactersUseCase()
+            val result = getCharactersUseCase()
+            result.onSuccess {
+                    data -> _characters.value = data
+            }.onFailure {
+                    exception -> _error.value = exception.message ?: "Error desconocido"
+            }
         }
     }
 }
