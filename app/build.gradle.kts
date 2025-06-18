@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.com.squareup.retrofit2.retrofit)        // Retrofit
     implementation(libs.com.squareup.retrofit2.converter.json)  // JSON
     implementation(libs.com.squareup.okhttp3.logging.interceptor)   //Logger
+    implementation(libs.androidx.datastore.preferences)             // DataStore
     implementation(libs.io.coil.kt.coil.compose)                // IO
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

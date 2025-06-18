@@ -1,5 +1,6 @@
 package com.alilopez.viewmodel.features.rickandmorty.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +32,7 @@ fun CharacterScreen(){
         factory = CharacterViewModelFactory(AppModule.getCharactersUseCase)
     )
     val characters by viewModel.characters.collectAsState()
-
+    Log.d("CharacterScreen", "Todo Ok")
     Scaffold(
         topBar = { TopAppBar(title = { Text("Rick and Morty Characters") }) }
     ) { padding ->

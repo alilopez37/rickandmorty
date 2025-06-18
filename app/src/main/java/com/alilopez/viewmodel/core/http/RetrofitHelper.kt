@@ -2,6 +2,7 @@ package com.alilopez.viewmodel.core.http
 
 import com.alilopez.viewmodel.core.http.interceptor.AuthInterceptor
 import com.alilopez.viewmodel.core.http.interceptor.provideLoggingInterceptor
+import com.alilopez.viewmodel.features.rickandmorty.data.datasource.local.DataStoreToken
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,12 +14,14 @@ object RetrofitHelper {
     private const val TIMEOUT = 20L
 
     private var retrofit: Retrofit? = null
+    private var dataStoreToken : DataStoreToken? = null
 
-    fun init(tokenProvider: () -> String, extraInterceptors: List<Interceptor> = emptyList()) {
+    fun init(dataStore : DataStoreToken, extraInterceptors: List<Interceptor> = emptyList()) {
+        dataStoreToken = dataStore
         if (retrofit == null) {
             synchronized(this) {
                 if (retrofit == null) {
-                    retrofit = buildRetrofit(tokenProvider, extraInterceptors)
+                    retrofit = buildRetrofit(extraInterceptors)
                 }
             }
         }
@@ -29,8 +32,8 @@ object RetrofitHelper {
         return retrofit!!.create(serviceClass)
     }
 
-    private fun buildRetrofit(tokenProvider: () -> String, extraInterceptors: List<Interceptor>): Retrofit {
-        val client = buildHttpClient(tokenProvider, extraInterceptors)
+    private fun buildRetrofit(extraInterceptors: List<Interceptor>): Retrofit {
+        val client = buildHttpClient(extraInterceptors)
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -39,17 +42,16 @@ object RetrofitHelper {
             .build()
     }
 
-    private fun buildHttpClient(tokenProvider: () -> String, extraInterceptors: List<Interceptor>): OkHttpClient {
+    private fun buildHttpClient(extraInterceptors: List<Interceptor>): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(AuthInterceptor(tokenProvider))
+            .addInterceptor(AuthInterceptor(requireNotNull(dataStoreToken)))
             .addInterceptor(provideLoggingInterceptor())
             .apply {
                 extraInterceptors.forEach { addInterceptor(it) }
             }
             .build()
     }
-
 }

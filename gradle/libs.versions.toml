@@ -5,14 +5,15 @@ coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.9.0"
+lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
-composeBom = "2025.05.01"
-lifecycleViewmodelCompose = "2.9.0"
+composeBom = "2025.06.00"
+lifecycleViewmodelCompose = "2.9.1"
 retrofit = "2.11.0"
 converterGson = "2.11.0"
 ioCoilVersion = "2.5.0"
 loggingInterceptor = "4.12.0"
+dataStore = "1.1.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +25,7 @@ androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "l
 com-squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 com-squareup-retrofit2-converter-json = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson"}
 com-squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor"}
+androidx-datastore-preferences = { group = "androidx.datastore", name ="datastore-preferences", version.ref = "dataStore"}
 
 io-coil-kt-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "ioCoilVersion"}
 
