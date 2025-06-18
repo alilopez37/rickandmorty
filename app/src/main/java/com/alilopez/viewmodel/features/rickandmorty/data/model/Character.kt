@@ -3,7 +3,7 @@ package com.alilopez.viewmodel.features.rickandmorty.data.model
 import com.alilopez.viewmodel.features.rickandmorty.domain.model.Characters
 
 
-data class CharacterDto(
+data class Character(
     val id: Int,
     val name: String,
     val image: String
