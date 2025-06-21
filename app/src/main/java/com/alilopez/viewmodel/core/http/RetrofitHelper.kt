@@ -1,8 +1,9 @@
 package com.alilopez.viewmodel.core.http
 
-import com.alilopez.viewmodel.core.http.interceptor.AuthInterceptor
+import com.alilopez.viewmodel.core.http.interceptor.AddTokenInterceptor
+import com.alilopez.viewmodel.core.http.interceptor.TokenCaptureInterceptor
 import com.alilopez.viewmodel.core.http.interceptor.provideLoggingInterceptor
-import com.alilopez.viewmodel.features.rickandmorty.data.datasource.local.DataStoreToken
+import com.alilopez.viewmodel.core.store.local.DataStoreManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -14,10 +15,10 @@ object RetrofitHelper {
     private const val TIMEOUT = 20L
 
     private var retrofit: Retrofit? = null
-    private var dataStoreToken : DataStoreToken? = null
+    private var dataStoreManager : DataStoreManager? = null
 
-    fun init(dataStore : DataStoreToken, extraInterceptors: List<Interceptor> = emptyList()) {
-        dataStoreToken = dataStore
+    fun init(dataStore : DataStoreManager, extraInterceptors: List<Interceptor> = emptyList()) {
+        dataStoreManager = dataStore
         if (retrofit == null) {
             synchronized(this) {
                 if (retrofit == null) {
@@ -47,7 +48,8 @@ object RetrofitHelper {
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(AuthInterceptor(requireNotNull(dataStoreToken)))
+            .addInterceptor(AddTokenInterceptor(requireNotNull(dataStoreManager)))
+            .addInterceptor(TokenCaptureInterceptor(requireNotNull(dataStoreManager)))
             .addInterceptor(provideLoggingInterceptor())
             .apply {
                 extraInterceptors.forEach { addInterceptor(it) }
