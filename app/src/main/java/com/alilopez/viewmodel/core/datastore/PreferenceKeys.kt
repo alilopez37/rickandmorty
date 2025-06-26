@@ -1,4 +1,4 @@
-package com.alilopez.viewmodel.core.store.local
+package com.alilopez.viewmodel.core.datastore
 
 import androidx.datastore.preferences.core.stringPreferencesKey
 

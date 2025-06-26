@@ -1,13 +1,12 @@
-package com.alilopez.viewmodel.core.store.local
+package com.alilopez.viewmodel.core.datastore
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 
 class DataStoreManager(private val context: Context) {
 
@@ -15,6 +14,7 @@ class DataStoreManager(private val context: Context) {
 
     suspend fun saveKey(key: Preferences.Key<String>, value: String) {
         context.dataStore.edit { prefs -> prefs[key] = value }
+        Log.d("DataStoreManager","Todo Ok")
     }
 
     suspend fun getKey(key: Preferences.Key<String>): String? {

@@ -1,8 +1,8 @@
 package com.alilopez.viewmodel.features.rickandmorty.data.repository
 
 
-import com.alilopez.viewmodel.core.store.local.DataStoreManager
-import com.alilopez.viewmodel.core.store.local.PreferenceKeys
+import com.alilopez.viewmodel.core.datastore.DataStoreManager
+import com.alilopez.viewmodel.core.datastore.PreferenceKeys
 import com.alilopez.viewmodel.features.rickandmorty.domain.repository.TokenRepository
 
 

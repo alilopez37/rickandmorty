@@ -1,5 +1,6 @@
 package com.alilopez.viewmodel.features.rickandmorty.data.repository
 
+import android.util.Log
 import com.alilopez.viewmodel.features.rickandmorty.data.datasource.remote.CharacterService
 import com.alilopez.viewmodel.features.rickandmorty.domain.model.Characters
 import com.alilopez.viewmodel.features.rickandmorty.domain.repository.CharacterRepository

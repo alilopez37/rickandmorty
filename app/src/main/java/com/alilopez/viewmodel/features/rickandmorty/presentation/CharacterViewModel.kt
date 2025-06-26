@@ -1,5 +1,6 @@
 package com.alilopez.viewmodel.features.rickandmorty.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alilopez.viewmodel.features.rickandmorty.domain.model.Characters
@@ -25,6 +26,7 @@ class CharacterViewModel(
     private fun fetchCharacters() {
         viewModelScope.launch {
             val result = getCharactersUseCase()
+            Log.d("fetchCharacters","Todo OK")
             result.onSuccess {
                     data -> _characters.value = data
             }.onFailure {

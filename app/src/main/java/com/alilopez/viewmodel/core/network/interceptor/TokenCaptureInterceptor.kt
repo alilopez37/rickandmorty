@@ -1,7 +1,7 @@
-package com.alilopez.viewmodel.core.http.interceptor
+package com.alilopez.viewmodel.core.network.interceptor
 
-import com.alilopez.viewmodel.core.store.local.DataStoreManager
-import com.alilopez.viewmodel.core.store.local.PreferenceKeys
+import com.alilopez.viewmodel.core.datastore.DataStoreManager
+import com.alilopez.viewmodel.core.datastore.PreferenceKeys
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

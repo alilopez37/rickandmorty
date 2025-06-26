@@ -1,9 +1,8 @@
-package com.alilopez.viewmodel.core.http.interceptor
+package com.alilopez.viewmodel.core.network.interceptor
 
 import android.util.Log
-import com.alilopez.viewmodel.core.store.local.DataStoreManager
-import com.alilopez.viewmodel.core.store.local.PreferenceKeys
-import kotlinx.coroutines.flow.firstOrNull
+import com.alilopez.viewmodel.core.datastore.DataStoreManager
+import com.alilopez.viewmodel.core.datastore.PreferenceKeys
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response

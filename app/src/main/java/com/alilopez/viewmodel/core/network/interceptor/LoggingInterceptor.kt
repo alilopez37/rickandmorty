@@ -1,4 +1,4 @@
-package com.alilopez.viewmodel.core.http.interceptor
+package com.alilopez.viewmodel.core.network.interceptor
 
 import okhttp3.logging.HttpLoggingInterceptor
 

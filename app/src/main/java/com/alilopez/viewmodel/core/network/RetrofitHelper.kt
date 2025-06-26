@@ -1,9 +1,10 @@
-package com.alilopez.viewmodel.core.http
+package com.alilopez.viewmodel.core.network
 
-import com.alilopez.viewmodel.core.http.interceptor.AddTokenInterceptor
-import com.alilopez.viewmodel.core.http.interceptor.TokenCaptureInterceptor
-import com.alilopez.viewmodel.core.http.interceptor.provideLoggingInterceptor
-import com.alilopez.viewmodel.core.store.local.DataStoreManager
+import com.alilopez.viewmodel.core.network.interceptor.AddTokenInterceptor
+import com.alilopez.viewmodel.core.network.interceptor.TokenCaptureInterceptor
+import com.alilopez.viewmodel.core.network.interceptor.provideLoggingInterceptor
+import com.alilopez.viewmodel.core.datastore.DataStoreManager
+import com.alilopez.viewmodel.core.di.DataStoreModule
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -15,10 +16,8 @@ object RetrofitHelper {
     private const val TIMEOUT = 20L
 
     private var retrofit: Retrofit? = null
-    private var dataStoreManager : DataStoreManager? = null
 
-    fun init(dataStore : DataStoreManager, extraInterceptors: List<Interceptor> = emptyList()) {
-        dataStoreManager = dataStore
+    fun init(extraInterceptors: List<Interceptor> = emptyList()) {
         if (retrofit == null) {
             synchronized(this) {
                 if (retrofit == null) {
@@ -48,8 +47,8 @@ object RetrofitHelper {
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(AddTokenInterceptor(requireNotNull(dataStoreManager)))
-            .addInterceptor(TokenCaptureInterceptor(requireNotNull(dataStoreManager)))
+            .addInterceptor(AddTokenInterceptor(requireNotNull(DataStoreModule.dataStoreManager)))
+            .addInterceptor(TokenCaptureInterceptor(requireNotNull(DataStoreModule.dataStoreManager)))
             .addInterceptor(provideLoggingInterceptor())
             .apply {
                 extraInterceptors.forEach { addInterceptor(it) }

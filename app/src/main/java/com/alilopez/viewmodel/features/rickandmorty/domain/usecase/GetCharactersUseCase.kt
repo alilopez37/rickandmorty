@@ -12,12 +12,13 @@ class GetCharactersUseCase(
 
     suspend operator fun invoke(): Result<List<Characters>> {
         val result = repository.getCharacters()
-        Log.d("TOKEN", "Todo Ok")
+        Log.d("GetCharactersUseCase", "Todo Ok 1")
         result.onSuccess {
                 data -> tokenRepository.saveToken("Barier 232323") // Acá va p.e. data.token
         }.onFailure {
                 exception -> tokenRepository.saveToken("")
         }
+        Log.d("GetCharactersUseCase", "Todo Ok 2")
         // En caso de existir acá debe estar la lógica de negocio
         return result
     }

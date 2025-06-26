@@ -32,12 +32,13 @@ fun CharacterScreen(){
         factory = CharacterViewModelFactory(AppModule.getCharactersUseCase)
     )
     val characters by viewModel.characters.collectAsState()
-    Log.d("CharacterScreen", "Todo Ok")
+
     Scaffold(
         topBar = { TopAppBar(title = { Text("Rick and Morty Characters") }) }
     ) { padding ->
         LazyColumn(contentPadding = padding) {
             items (characters) { character ->
+                Log.d("Name",character.name)
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)) {
