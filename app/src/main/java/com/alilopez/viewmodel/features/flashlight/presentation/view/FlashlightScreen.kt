@@ -25,7 +25,7 @@ import com.alilopez.viewmodel.features.flashlight.presentation.viewmodel.Flashli
 @Composable
 fun FlashlightScreen() {
     val viewModel: FlashlightViewModel = viewModel(
-        factory = FlashlightViewModelFactory(HardwareModule.provideFlashlightRepository())
+        factory = FlashlightViewModelFactory(HardwareModule.flashlightManager)
     )
     //val viewModel = remember { FlashlightViewModel(FlashlightManager(context)) }
     val isTorchOn by viewModel.isTorchOn.collectAsState<Boolean>()
