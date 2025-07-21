@@ -24,10 +24,10 @@ import com.alilopez.viewmodel.features.flashlight.presentation.viewmodel.Flashli
 
 @Composable
 fun FlashlightScreen() {
+
     val viewModel: FlashlightViewModel = viewModel(
-        factory = FlashlightViewModelFactory(HardwareModule.flashlightManager)
+        factory = FlashlightViewModelFactory(HardwareModule.flashlightManager, HardwareModule.vibrateManager)
     )
-    //val viewModel = remember { FlashlightViewModel(FlashlightManager(context)) }
     val isTorchOn by viewModel.isTorchOn.collectAsState<Boolean>()
 
     Column(
@@ -42,6 +42,9 @@ fun FlashlightScreen() {
         )
         Button(onClick = { viewModel.toggleTorch() }) {
             Text(if (isTorchOn) "Apagar" else "Encender")
+        }
+        Button(onClick = { viewModel.vibrate() }) {
+            Text(text = "Vibrar")
         }
     }
 }
